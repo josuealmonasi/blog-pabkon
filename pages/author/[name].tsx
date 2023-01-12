@@ -8,6 +8,8 @@ export interface AuthorPageProps {
 }
 
 const AuthorPage: NextPage<AuthorPageProps> = ({ author }) => {
+  console.log(author);
+
   return (
     <Layout title={'ani'}>
       <Spacer y={2} />
