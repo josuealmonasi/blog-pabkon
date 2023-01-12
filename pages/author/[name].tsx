@@ -1,4 +1,4 @@
-import { Spacer } from '@nextui-org/react';
+import { Spacer, User } from '@nextui-org/react';
 import { Layout } from 'components/layouts';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { client } from 'utils';
@@ -13,6 +13,11 @@ const AuthorPage: NextPage<AuthorPageProps> = ({ author }) => {
   return (
     <Layout title={'ani'}>
       <Spacer y={2} />
+      <User
+        src={author.image.fields.file.url}
+        name={author.name}
+        description={author.shortBio}
+      />
       <pre>{JSON.stringify(author)}</pre>
     </Layout>
   );
