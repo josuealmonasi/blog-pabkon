@@ -30,14 +30,10 @@ export const getStaticPaths: GetStaticPaths = async _ctx => {
     content_type: 'blogPost-2',
   });
 
-  console.log(response);
-
   const paths = response.items.map(item => ({
     //@ts-ignore
     params: { entry: item.fields.slug },
   }));
-
-  console.log(paths);
 
   return {
     paths,
@@ -48,7 +44,6 @@ export const getStaticPaths: GetStaticPaths = async _ctx => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug } = params as { slug: string };
-  console.log(slug);
 
   const response = await client.getEntries({
     content_type: 'blogPost-2',
