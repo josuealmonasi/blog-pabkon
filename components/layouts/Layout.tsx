@@ -5,16 +5,21 @@ import { Container } from '@nextui-org/react';
 
 type LayoutProps = {
   title?: string;
+  author?: string;
 } & PropsWithChildren;
 
-export const Layout: FC<LayoutProps> = ({ children, title = 'Pokémon App' }) => {
+export const Layout: FC<LayoutProps> = ({
+  children,
+  title = 'Pokémon App',
+  author = '',
+}) => {
   return (
     <>
       <Head>
         <title>{`${title.charAt(0).toUpperCase()}${title.substring(1)}`}</title>
-        <meta name='author' content='Josué Almonasi' />
+        {author !== '' && <meta name='author' content={author} />}
         <meta name='description' content={`Info about Pokémon ${title}`} />
-        <meta name='keywords' content={`${title}, pokémon, pokemon, pokedex`} />
+        <meta name='keywords' content={`${title}`} />
       </Head>
 
       <NavBar />
