@@ -4,6 +4,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { client } from 'utils';
 import ReactMarkdown from 'react-markdown';
 import { Text } from '@nextui-org/react';
+import rehypeRaw from 'rehype-raw';
 
 export interface BlogPostPageProps {
   blogPost: any;
@@ -34,6 +35,7 @@ const BlogPostPage: NextPage<BlogPostPageProps> = ({ blogPost }) => {
       author={blogPost.author.fields.name}
     >
       <Image
+        loading='lazy'
         height={320}
         src={blogPost.image.fields.file.url}
         alt='Default Image'
@@ -54,7 +56,7 @@ const BlogPostPage: NextPage<BlogPostPageProps> = ({ blogPost }) => {
 
       <Spacer y={1} />
 
-      <ReactMarkdown>{blogPost.body}</ReactMarkdown>
+      <ReactMarkdown rehypePlugins={[rehypeRaw]}>{blogPost.body}</ReactMarkdown>
     </Layout>
   );
 };
@@ -77,11 +79,14 @@ export const getStaticPaths: GetStaticPaths = async _ctx => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { slug } = params as { slug: string };
+  console.log(params);
+
+  const { entry } = params as { entry: string };
+  // console.log(slug);
 
   const response = await client.getEntries({
     content_type: 'blogPost-2',
-    'fields.slug': slug,
+    'fields.slug[in]': entry,
   });
   // const Author = await getAuthorInfo(name);
   // if (!Author) {
@@ -93,7 +98,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   //   };
   // }
 
-  console.log(response.items[0]);
+  // console.log(response.items);
 
   return {
     props: {

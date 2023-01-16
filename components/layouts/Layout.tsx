@@ -8,11 +8,7 @@ type LayoutProps = {
   author?: string;
 } & PropsWithChildren;
 
-export const Layout: FC<LayoutProps> = ({
-  children,
-  title = 'Pokémon App',
-  author = '',
-}) => {
+export const Layout: FC<LayoutProps> = ({ children, title = 'Pakbon', author = '' }) => {
   return (
     <>
       <Head>
